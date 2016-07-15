@@ -4,7 +4,7 @@
 #
 Name     : rubygem-bacon
 Version  : 1.2.0
-Release  : 11
+Release  : 12
 URL      : https://rubygems.org/downloads/bacon-1.2.0.gem
 Source0  : https://rubygems.org/downloads/bacon-1.2.0.gem
 Summary  : No detailed summary available
@@ -12,6 +12,7 @@ Group    : Development/Tools
 License  : MIT
 Requires: rubygem-bacon-bin
 BuildRequires : ruby
+BuildRequires : rubygem-bacon
 BuildRequires : rubygem-rdoc
 
 %description
@@ -33,6 +34,7 @@ gem unpack %{SOURCE0}
 gem spec %{SOURCE0} -l --ruby > rubygem-bacon.gemspec
 
 %build
+export LANG=C
 gem build rubygem-bacon.gemspec
 
 %install
@@ -55,11 +57,11 @@ cp -pa .%{_bindir}/* \
 fi
 
 %check
+export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost
-pushd %{buildroot}%{gem_dir}/gems/bacon-1.2.0
-popd
+pushd %{buildroot}%{gem_dir}/gems/bacon-1.2.0 && bacon -I.:lib --automatic --quiet && popd
 
 
 %files

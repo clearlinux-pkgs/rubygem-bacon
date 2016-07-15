@@ -1,0 +1,1 @@
+pushd %{buildroot}%{gem_dir}/gems/bacon-1.2.0 && bacon -I.:lib --automatic --quiet && popd
